@@ -6,46 +6,61 @@ export default class react_vr_demo extends React.Component {
   constructor() {
     super();
     this.state = {
-      background:
-        "https://farm2.staticflickr.com/1763/41116404980_d4a20da144_b.jpg",
-      backgroundImages: [],
-      currentDestination: 0
+      currentDestinationId: 0,
+      destinations: [
+        {
+          id: 0,
+          photoId: 34506405094,
+          background: "https://farm2.staticflickr.com/1763/41116404980_d4a20da144_b.jpg",
+          description: "Flood"
+        },
+        {
+          id: 1,
+          photoId: 5097827282,
+          background: null,
+          description: "City by night"
+        }
+      ]
     };
   }
 
-  componentDidMount() {
-    getBackgrounds().then(backgroundImages => {
+  componentWillMount() {
+    getBackgrounds(this.state.destinations).then(destinationsWithBackgroundImage => {
       this.setState({
-        background: backgroundImages[0],
-        backgroundImages,
-        currentDestination: 0
+        background: destinationsWithBackgroundImage[0].background,
+        currentDestination: 0,
+        destinations: destinationsWithBackgroundImage
       });
     });
   }
 
-  travelToDestination(index) {
-    console.log("travelToDestination", index);
+  travelToDestination(id) {
+    this.setState({
+      currentDestinationId: id
+    });
+  }
+
+  getCurrentDestinationById (id) {
+    return this.state.destinations.find(destination => destination.id === id);
   }
 
   render() {
-    const destinationDescriptions = ["Flood", "City by night"];
-
     return (
       <View>
-        <Pano source={{ uri: this.state.background }} />
+        <Pano source={{ uri: this.getCurrentDestinationById(this.state.currentDestinationId).background }} />
         <Text style={styles.welcomePanel}>React VR adventure traveller</Text>
         <View style={styles.menuWrapper}>
-          {this.state.backgroundImages.map((destination, index) => {
+          {this.state.destinations.map(destination => {
             return (
               <View
                 style={styles.menuItem}
-                key={index}
+                key={destination.id}
                 onEnter={() => {
-                  this.travelToDestination(index);
+                  this.travelToDestination(destination.id);
                 }}
               >
                 <Text style={styles.menuItemText}>
-                  {destinationDescriptions[index]}
+                  {destination.description}
                 </Text>
               </View>
             );
