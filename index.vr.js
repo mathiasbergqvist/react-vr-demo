@@ -12,6 +12,7 @@ import {
   Box
 } from "react-vr";
 import { getImages, getBackgrounds } from "./api/api";
+import { getLavaPlanet, getAeroplane, getSkull, getBarrel, getBox } from "./models/models";
 
 export default class react_vr_demo extends React.Component {
   constructor() {
@@ -79,81 +80,17 @@ export default class react_vr_demo extends React.Component {
   get3dShape() {
     switch (this.state.currentDestinationId) {
       case 0:
-      return (
-        <Sphere
-          radius={0.5}
-          heightSegments={10}
-          widthSegments={10}
-          texture={'http://i.imgur.com/3FAR9Kf.jpg'}
-          style={{
-            transform: [{ translate: [-4.5, 3.5, 6] }]
-          }}
-        />
-      );
-      case 1: 
-      return (
-        <Model 
-          source={{obj: asset('plane.obj')}}
-          wireframe={true}
-          style={{
-            color: "#333d84",
-            transform: [
-              {translate: [-8, 5, -9]},
-              {rotate: 20}
-            ]
-          }}
-        />
-      );
+        return getLavaPlanet();
+      case 1:
+        return getAeroplane();
       case 2:
-      return (
-        <Model 
-          wireframe={true}
-          source={{obj: asset("skull.obj")}}
-          style={{
-            color: "#ffffff",
-            transform: [
-              {translate: [0, 4, -9]},
-              {rotate: 25}
-            ]
-          }}
-        />
-      );
+        return getSkull();
       case 3:
-      return (
-        <Cylinder
-          dimHeight={1.5}
-          radiusBottom={0.5}
-          radiusTop={0.5}
-          segments={15}
-          style={{
-            color: "#664908",
-            transform: [
-              { translate: [7, -2, 4] },
-            ]
-          }}
-        />
-      );
+        return getBarrel();
       case 4:
-      return (
-        <Box
-          dimWidth={0.5}
-          dimHeight={0.5}
-          dimDepth={0.5}
-          texture={'http://i.imgur.com/SHgHAyC.jpg'}
-          style={{
-            
-            transform: [
-              { translate: [-0.5, 2.5, -3] },
-              { translateY: 1 },
-              { translateX: -0.5 },
-              { rotateY: 45 },
-              { rotateZ: 45 }
-            ]
-          }}
-        />
-      );
+        return getBox();
       default:
-      return null;
+        return null;
     }
   }
 
