@@ -1,16 +1,20 @@
 {
-  "name": "react_vr_demo",
-  "version": "0.0.1",
+  "name": "react_vr_adventure_traveller",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "node -e \"console.log('open browser at http://localhost:8081/vr/\\n\\n');\" && node node_modules/react-native/local-cli/cli.js start",
+    "start:prod": "node server.js",
+    "start:dev": "node -e && node node_modules/react-native/local-cli/cli.js start",
     "bundle": "node node_modules/react-vr/scripts/bundle.js",
     "open": "node -e \"require('xopen')('http://localhost:8081/vr/')\"",
     "devtools": "react-devtools",
     "test": "jest"
   },
+  "license": "MIT",
+  "author": "Mathias Bergqvist",
   "dependencies": {
     "axios": "^0.18.0",
+    "connect": "^3.6.6",
     "dotenv": "^6.1.0",
     "ovrui": "~2.0.0",
     "react": "16.0.0",
@@ -19,6 +23,7 @@
     "react-native-level-fs": "^3.0.1",
     "react-vr": "~2.0.0",
     "react-vr-web": "~2.0.0",
+    "serve-static": "^1.13.2",
     "three": "^0.87.0"
   },
   "devDependencies": {
@@ -31,5 +36,8 @@
   },
   "jest": {
     "preset": "react-vr"
+  },
+  "engines": {
+    "node": "9.5.0"
   }
 }
